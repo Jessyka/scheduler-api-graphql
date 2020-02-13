@@ -17,7 +17,7 @@ npm install
 ## Running locally
  
 To run the the application, execute `npm start` and access it at
-[http://localhost:3000](http://localhost:3000).
+[http://localhost:4000](http://localhost:4000).
  
  ## Build package
  
