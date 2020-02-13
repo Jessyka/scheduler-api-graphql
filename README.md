@@ -1,4 +1,6 @@
 # scheduler-api-graphql
+API Node using GraphQL - based on [https://cursos.alura.com.br/course/graphql](https://cursos.alura.com.br/course/graphql).
+
 
 ## Before starting
  
