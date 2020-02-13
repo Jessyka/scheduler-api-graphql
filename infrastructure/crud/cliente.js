@@ -6,35 +6,36 @@ class Cliente {
 
     return executaQuery(sql)
   }
-
-  buscaPorId(id) {
-    const sql = `SELECT * FROM Clientes WHERE id=${id}`
-
-    executaQuery(sql)
-  }
-
+  
   adiciona(item) {
     const { nome, cpf } = item
     const sql = `INSERT INTO Clientes(nome, CPF) VALUES('${nome}', '${cpf}')`
 
-    executaQuery(sql).then(resposta => {
+    return executaQuery(sql).then(resposta => {
         id: resposta.insertId,
         nome,
         cpf
     })
   }
 
+  buscaPorId(id) {
+    const sql = `SELECT * FROM Clientes WHERE id=${id}`
+
+    return executaQuery(sql).then(clientes => clientes[0])
+  }
+  
+
   atualiza(novoItem, id) {
     const { nome, cpf } = novoItem
     const sql = `UPDATE Clientes SET nome='${nome}', CPF='${cpf}' WHERE id=${id}`
 
-    executaQuery(sql)
+    return executaQuery(sql)
   }
 
   deleta(id) {
     const sql = `DELETE FROM Clientes WHERE id=${id}`
 
-    executaQuery(sql)
+    return executaQuery(sql)
   }
 }
 
