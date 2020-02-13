@@ -4,6 +4,16 @@ type Cliente {
     cpf: String!
 }
 
+type Atendimento {
+    id: ID!,
+    cliente: String!,
+    servico: String!,
+    data: String!,
+    dataCriacao: String!,
+    status: String!,
+    observacao: String!
+}
+
 type Mutation {
     adicionarCliente(nome: String!, cpf: String!): Cliente!,
     atualizaCliente(id: ID!, nome: String!, cpf: String!): Cliente!,
@@ -13,5 +23,6 @@ type Mutation {
 type Query {
     status: String!,
     clientes: [Cliente!]!,
-    cliente(id: ID!): Cliente!
+    cliente(id: ID!): Cliente!,
+    atendimentos: [Atendimento!]!
 }

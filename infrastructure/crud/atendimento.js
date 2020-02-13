@@ -1,40 +1,41 @@
 const executaQuery = require('../database/queries')
 
 class Atendimento {
-  lista(res) {
+  lista() {
     const sql = 'SELECT * FROM Atendimentos'
 
-    executaQuery(res, sql)
+    return executaQuery(sql)
   }
 
-  buscaPorId(res, id) {
+  buscaPorId(id) {
     const sql = `SELECT * FROM Atendimentos WHERE id=${parseInt(id)}`
 
-    executaQuery(res, sql)
+    return executaQuery(sql).then(atendimentos => atendimentos[0])
   }
 
-  adiciona(res, item) {
-    const { cliente, pet, servico, status, observacoes } = item
-    const data = new Date().toLocaleDateString()
+  adiciona(item) {
+    const dataCriacao = new Date()
+    const data = moment(item.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS')
 
-    const sql = `INSERT INTO Atendimentos(clienteId, petId, servicoId, data, status, observacoes) VALUES(${cliente}, ${pet}, ${servico}, '${data}', '${status}', '${observacoes}')`
+    const sql = `INSERT INTO Atendimentos(cliente, servico, data, dataCriacao, status, observacoes) VALUES(${item.cliente}, ${item.servico}, ${data}, '${dataCriacao}', '${item.status}', '${item.observacoes}')`
 
-    executaQuery(res, sql)
+    return executaQuery(sql).then(resposta => {
+      id: resposta.insertId,
+      item
+    })
   }
 
-  atualiza(res, novoItem, id) {
-    const { cliente, pet, servico, status, observacoes } = item
-    const data = new Date.toLocaleDateString()
-  
-    const sql = `UPDATE Atendimentos SET clienteId=${cliente}, petId=${pet}, servicoId=${servico}, data='${data}', status='${status}' observacoes='${observacoes}' WHERE id=${id}`
-
-    executaQuery(res, sql)
+  atualiza(item) {
+    const { cliente, servico, status, observacoes, id } = item
+    const sql = `UPDATE Atendimentos SET cliente=${cliente}, servico=${servico}, status='${status}' observacoes='${observacoes}' WHERE id=${id}`
+    
+    return executaQuery(sql).then(() => item)
   }
 
-  deleta(res, id) {
+  deleta(id) {
     const sql = `DELETE FROM Atendimentos WHERE id=${id}`
 
-    executaQuery(res, sql)
+    return executaQuery(sql).then(() => id)
   }
 }
 

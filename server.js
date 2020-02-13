@@ -14,12 +14,14 @@ conexao.connect(erro => {
 })
 
 const Clientes = new Operacoes('cliente')
+const Atendimentos = new Operacoes('atendimento')
 
 const resolvers = {
   Query: {
       status: () => "Servidor rodando!" ,
       clientes: () => Clientes.lista(),
-      cliente: (root, { id }) => Clientes.buscaPorId(id)
+      cliente: (root, { id }) => Clientes.buscaPorId(id),
+      atendimentos: () => Atendimentos.lista()
   },
 
   Mutation: {
